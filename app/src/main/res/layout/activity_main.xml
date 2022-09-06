@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- ImageView to display the captured image -->
+    <ImageView
+        android:id="@+id/click_image"
+        android:layout_width="550dp"
+        android:layout_height="550dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@id/camera_button"
+        />
+
+    <!-- Camera Button to open the Camera -->
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="140dp"
+        android:text="Capture Image"
+        android:layout_alignParentLeft="true"
+        />
+
+    <!--Button to open the image selector-->
+    <Button
+        android:layout_alignRight="@id/camera_button"
+        android:id="@+id/BSelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#37AEE4"
+        android:text="SELECT IMAGE"
+        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"
+        android:textSize="18sp" />
+
+    <!--ImageView to preview the selected image-->
+    <ImageView
+        android:id="@+id/IVPreviewImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/BSelectImage"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
+</RelativeLayout>
