@@ -2,12 +2,12 @@ package com.example.helloworld;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // This method will help to retrieve the image
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Match the request 'pic id with requestCode
@@ -43,7 +43,16 @@ public class MainActivity extends AppCompatActivity {
             // BitMap is data structure of image file which store the image in memory
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             // Set the image in imageview for display
-            click_image_id.setImageBitmap(photo);
+//            click_image_id.setImageBitmap(photo);
+            Intent intent = new Intent(getApplicationContext(), ClassificationActivity.class);
+            // now by putExtra method put the value in key, value pair key is
+            // message_key by this key we will receive the value, and put the string
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.JPEG,100,stream);
+            byte[] photoBytes = stream.toByteArray();
+            intent.putExtra("image", photoBytes);
+            // start the Intent
+            startActivity(intent);
         }
     }
 }

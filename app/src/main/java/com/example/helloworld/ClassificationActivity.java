@@ -1,21 +1,31 @@
 package com.example.helloworld;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.ArrayList;
 import android.view.MotionEvent;
 
-public class MainActivity2 extends AppCompatActivity {
+public class ClassificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        Bundle extras = getIntent().getExtras();
+        byte[] byteArray = extras.getByteArray("image");
+
+        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        ImageView image = (ImageView) findViewById(R.id.view_image);
+        image.setImageBitmap(bmp);
 
         Spinner spinner = findViewById(R.id.category_spinner);
         ArrayList<String> arrayList = new ArrayList<>();

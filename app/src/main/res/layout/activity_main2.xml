@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity2">
+    tools:context=".ClassificationActivity">
 
     <!-- Spinner to select the category -->
     <Spinner
@@ -19,7 +19,7 @@
 
     <!-- ImageView to display the captured image -->
     <ImageView
-        android:id="@+id/click_image"
+        android:id="@+id/view_image"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginTop="20dp" />
