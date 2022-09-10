@@ -19,12 +19,12 @@ public class MainActivity2 extends AppCompatActivity {
 
         Spinner spinner = findViewById(R.id.category_spinner);
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("JAVA");
-        arrayList.add("ANDROID");
-        arrayList.add("C Language");
-        arrayList.add("CPP Language");
-        arrayList.add("Go Language");
-        arrayList.add("AVN SYSTEMS");
+        arrayList.add("Buildings");
+        arrayList.add("Tree");
+        arrayList.add("Flowers");
+        arrayList.add("Cloths");
+        arrayList.add("Book");
+        arrayList.add("Person");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
