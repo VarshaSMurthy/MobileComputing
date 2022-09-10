@@ -39,18 +39,7 @@
 
 
 
-    <!--Button to open the image selector-->
-    <Button
-        android:id="@+id/UploadImage"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#7113d4"
-        android:textColor="@android:color/white"
-        android:text="Select Category and Upload Image"
-        android:textSize="16sp"
-        />
+
 
 <!--    &lt;!&ndash;ImageView to preview the selected image&ndash;&gt;-->
 <!--    <ImageView-->
