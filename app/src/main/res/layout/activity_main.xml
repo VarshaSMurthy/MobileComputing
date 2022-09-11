@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- Camera Button to open the Camera -->
+    <!-- Button to open the Camera -->
     <Button
         android:id="@+id/camera_button"
         android:layout_gravity="center_horizontal"
@@ -19,36 +19,5 @@
         android:textColor="@android:color/white"
         android:textSize="16sp"
         />
-
-    <!-- Spinner to select the category -->
-<!--    <Spinner-->
-<!--        android:id="@+id/category_spinner"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@android:drawable/btn_dropdown"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        android:spinnerMode="dropdown"/>-->
-
-    <!-- ImageView to display the captured image -->
-    <ImageView
-        android:id="@+id/click_image"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="20dp"
-        />
-
-
-
-
-
-<!--    &lt;!&ndash;ImageView to preview the selected image&ndash;&gt;-->
-<!--    <ImageView-->
-<!--        android:id="@+id/IVPreviewImage"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="300dp"-->
-<!--        android:layout_below="@id/BSelectImage"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="16dp" />-->
 
 </LinearLayout>
