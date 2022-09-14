@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         // By ID we can get each component which id is assigned in XML file get Buttons and imageview.
         camera_open_id = findViewById(R.id.camera_button);
-        click_image_id = findViewById(R.id.click_image);
 
         // Camera_open button is for open the camera and add the setOnClickListener in this button
         camera_open_id.setOnClickListener(v -> {
