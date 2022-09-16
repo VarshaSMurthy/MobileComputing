@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import android.view.MotionEvent;
 
+
+
 public class ClassificationActivity extends AppCompatActivity {
 
     @Override
