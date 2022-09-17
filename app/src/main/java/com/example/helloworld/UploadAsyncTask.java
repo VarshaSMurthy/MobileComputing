@@ -18,10 +18,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Multipart;
 
 public class UploadAsyncTask extends AsyncTask<String,String,String> {
-    private static final String host = "http://127.0.0.1:5000/image/store";
+    private static final String host = "http://10.0.2.2:5000/";
     private String filePath;
 
     public UploadAsyncTask(String filePath) {
@@ -30,7 +31,10 @@ public class UploadAsyncTask extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(host).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(host)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         File image = new File(this.filePath);
         RequestBody imageBody = RequestBody.create(image,MediaType.parse("image/*"));
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("image",image.getName(),imageBody);
