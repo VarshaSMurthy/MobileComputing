@@ -1,5 +1,7 @@
 package com.example.helloworld;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -7,16 +9,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
+
 import android.view.MotionEvent;
-
-
 
 public class ClassificationActivity extends AppCompatActivity {
 
+    Button uploadService;
+    String selectedCategory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +56,30 @@ public class ClassificationActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView <?> parent) {
+            }
+        });
+        uploadService = findViewById(R.id.UploadImage);
+        uploadService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                UUID uuid = UUID.randomUUID();
+                String filename = uuid.toString();
+                File file = new File(directory, filename + ".jpg");
+                if (!file.exists()) {
+                    FileOutputStream fos = null;
+                    try {
+                        fos = new FileOutputStream(file);
+                        bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                        fos.flush();
+                        fos.close();
+                    } catch (java.io.IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                UploadAsyncTask uploadTask = new UploadAsyncTask(file.getPath());
+                uploadTask.execute();
             }
         });
     }
