@@ -8,12 +8,19 @@
     tools:context=".ClassificationActivity">
 
     <!-- Spinner to select the category -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="Select Image Category"
+        android:textSize="20sp" />
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown" />
 
@@ -21,20 +28,19 @@
     <ImageView
         android:id="@+id/view_image"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:layout_marginTop="20dp" />
 
     <!--Button to open the image selector-->
     <Button
         android:id="@+id/UploadImage"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#7113d4"
-        android:textColor="@android:color/white"
         android:text="Upload Image"
-        android:textSize="16sp"
-        />
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 </LinearLayout>
