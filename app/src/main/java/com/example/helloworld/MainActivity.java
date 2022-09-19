@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             // Set the image in imageview for display
 //            click_image_id.setImageBitmap(photo);
-            Intent intent = new Intent(getApplicationContext(), ClassificationActivity.class);
+            Intent intent = new Intent(this, ClassificationActivity.class);
             // now by putExtra method put the value in key, value pair key is
             // message_key by this key we will receive the value, and put the string
             ByteArrayOutputStream stream = new ByteArrayOutputStream();

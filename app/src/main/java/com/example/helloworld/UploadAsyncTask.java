@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 import com.example.helloworld.pojo.UploadResponse;
@@ -24,9 +25,21 @@ import retrofit2.http.Multipart;
 public class UploadAsyncTask extends AsyncTask<String,String,String> {
     private static final String host = "http://10.0.2.2:5000/";
     private String filePath;
-
-    public UploadAsyncTask(String filePath) {
+    private String fileCategory;
+    private ProgressDialog progressDialog;
+    public UploadAsyncTask(String filePath, String fileCategory,ProgressDialog progressDialog) {
         this.filePath = filePath;
+        this.fileCategory = fileCategory;
+        this.progressDialog = progressDialog;
+    }
+
+    @Override
+    protected void onPreExecute(){
+        super.onPreExecute();
+        // display a progress dialog for good user experiance
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
@@ -39,18 +52,20 @@ public class UploadAsyncTask extends AsyncTask<String,String,String> {
         RequestBody imageBody = RequestBody.create(image,MediaType.parse("image/*"));
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("image",image.getName(),imageBody);
         RequestBody textRequest = RequestBody.create("category",MediaType.parse("text/plain"));
-        MultipartBody.Part textPart =  MultipartBody.Part.createFormData("category","test");
+        MultipartBody.Part textPart =  MultipartBody.Part.createFormData("category",this.fileCategory);
         UploadService service = retrofit.create(UploadService.class);
         Call<UploadResponse> response = service.startUpload(filePart, textPart);
         response.enqueue(new Callback<UploadResponse>() {
             @Override
             public void onResponse(Call<UploadResponse> call, Response<UploadResponse> response) {
                 System.out.println("Successfully uploaded");
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<UploadResponse> call, Throwable t) {
                 System.out.println("Failed to upload");
+                progressDialog.dismiss();
             }
         });
         return "Completed";

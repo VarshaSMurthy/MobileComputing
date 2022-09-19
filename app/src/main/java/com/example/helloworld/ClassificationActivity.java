@@ -1,7 +1,9 @@
 package com.example.helloworld;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +26,6 @@ import android.view.MotionEvent;
 public class ClassificationActivity extends AppCompatActivity {
 
     Button uploadService;
-    String selectedCategory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,7 @@ public class ClassificationActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView <?> parent) {
             }
         });
+
         uploadService = findViewById(R.id.UploadImage);
         uploadService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,7 @@ public class ClassificationActivity extends AppCompatActivity {
                 File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
                 UUID uuid = UUID.randomUUID();
                 String filename = uuid.toString();
+                System.out.println("Filename = "+filename);
                 File file = new File(directory, filename + ".jpg");
                 if (!file.exists()) {
                     FileOutputStream fos = null;
@@ -78,8 +81,8 @@ public class ClassificationActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                UploadAsyncTask uploadTask = new UploadAsyncTask(file.getPath());
-                uploadTask.execute();
+                ProgressDialog progressDialog = new ProgressDialog(ClassificationActivity.this);
+                UploadAsyncTask uploadTask = new UploadAsyncTask(file.getPath(),spinner.getSelectedItem().toString(),progressDialog);
             }
         });
     }
