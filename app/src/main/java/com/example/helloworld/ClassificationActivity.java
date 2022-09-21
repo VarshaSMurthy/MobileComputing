@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ClassificationActivity extends AppCompatActivity {
 
     Button uploadService;
-    private static final String host = "http://10.0.2.2:5000/";
+    private static final String host = "http://192.168.0.214:5000/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
