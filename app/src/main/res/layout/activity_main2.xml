@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context=".ClassificationActivity">
 
-    <!-- Spinner to select the category -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +14,7 @@
         android:layout_marginTop="10dp"
         android:text="Select Image Category"
         android:textSize="20sp" />
+    <!-- Spinner to select the category -->
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="wrap_content"
@@ -42,5 +42,4 @@
         android:text="Upload Image"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
-
 </LinearLayout>

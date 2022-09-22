@@ -51,13 +51,15 @@ public class ClassificationActivity extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.view_image);
         image.setImageBitmap(bmp);
 
+        //https://www.geeksforgeeks.org/spinner-in-android-using-java-with-example/
+        //Dropdown menu containing the categories of image
         Spinner spinner = findViewById(R.id.category_spinner);
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Buildings");
-        arrayList.add("Tree");
+        arrayList.add("Objects");
         arrayList.add("Flowers");
-        arrayList.add("Cloths");
-        arrayList.add("Book");
+        arrayList.add("Food");
+        arrayList.add("Stationery");
         arrayList.add("Person");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
