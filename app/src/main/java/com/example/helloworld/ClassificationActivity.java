@@ -85,6 +85,8 @@ public class ClassificationActivity extends AppCompatActivity {
                 String filename = uuid.toString();
                 System.out.println("Filename = "+filename);
                 File file = new File(directory, filename + ".jpg");
+                // @Brijesh Thakur - https://stackoverflow.com/questions/17674634/saving-and-reading-bitmaps-images-from-internal-memory-in-android
+                // Save bitmap image in internal memory
                 if (!file.exists()) {
                     FileOutputStream fos = null;
                     try {
@@ -96,8 +98,8 @@ public class ClassificationActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                // setup dialog box for success and failure scenario
                 ProgressDialog progressDialog = new ProgressDialog(ClassificationActivity.this);
-//                UploadAsyncTask uploadTask = new UploadAsyncTask(file.getPath(),spinner.getSelectedItem().toString(),progressDialog);
                 progressDialog.setTitle("Uploading Image");
                 progressDialog.setMessage("Image upload in progress...");
                 progressDialog.setCancelable(false);
@@ -110,9 +112,9 @@ public class ClassificationActivity extends AppCompatActivity {
                 File image = new File(file.getPath());
                 RequestBody imageBody = RequestBody.create(image, MediaType.parse("image/*"));
                 MultipartBody.Part filePart = MultipartBody.Part.createFormData("image",image.getName(),imageBody);
-                RequestBody textRequest = RequestBody.create("category",MediaType.parse("text/plain"));
                 MultipartBody.Part textPart =  MultipartBody.Part.createFormData("category",spinner.getSelectedItem().toString());
                 UploadService service = retrofit.create(UploadService.class);
+                // Call REST API using retrofit
                 Call<UploadResponse> response = service.startUpload(filePart, textPart);
                 response.enqueue(new Callback<UploadResponse>() {
                     @Override
@@ -124,6 +126,7 @@ public class ClassificationActivity extends AppCompatActivity {
                                 .setMessage("Your Image has been uploaded to the server!")
                                 .setCancelable(false)
                                 .setPositiveButton("ok", (DialogInterface.OnClickListener) (dialog, which) -> {
+                                    // Redirect to main activity
                                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                                 }).show();
                     }
@@ -137,7 +140,7 @@ public class ClassificationActivity extends AppCompatActivity {
                                 .setMessage("Something went wrong... Please try after some time.")
                                 .setCancelable(true)
                                 .setPositiveButton("ok", (DialogInterface.OnClickListener) (dialog, which) -> {
-
+                                    // stay at same activity
                                 }).show();
                     }
                 });
