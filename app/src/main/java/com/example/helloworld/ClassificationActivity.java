@@ -53,27 +53,27 @@ public class ClassificationActivity extends AppCompatActivity {
 
         //https://www.geeksforgeeks.org/spinner-in-android-using-java-with-example/
         //Dropdown menu containing the categories of image
-        Spinner spinner = findViewById(R.id.category_spinner);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Buildings");
-        arrayList.add("Objects");
-        arrayList.add("Flowers");
-        arrayList.add("Food");
-        arrayList.add("Stationery");
-        arrayList.add("Person");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView <?> parent) {
-            }
-        });
+//        Spinner spinner = findViewById(R.id.category_spinner);
+//        ArrayList<String> arrayList = new ArrayList<>();
+//        arrayList.add("Buildings");
+//        arrayList.add("Objects");
+//        arrayList.add("Flowers");
+//        arrayList.add("Food");
+//        arrayList.add("Stationery");
+//        arrayList.add("Person");
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
+//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(arrayAdapter);
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String tutorialsName = parent.getItemAtPosition(position).toString();
+//                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_LONG).show();
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView <?> parent) {
+//            }
+//        });
 
         uploadService = findViewById(R.id.UploadImage);
         uploadService.setOnClickListener(new View.OnClickListener() {
@@ -112,10 +112,10 @@ public class ClassificationActivity extends AppCompatActivity {
                 File image = new File(file.getPath());
                 RequestBody imageBody = RequestBody.create(image, MediaType.parse("image/*"));
                 MultipartBody.Part filePart = MultipartBody.Part.createFormData("image",image.getName(),imageBody);
-                MultipartBody.Part textPart =  MultipartBody.Part.createFormData("category",spinner.getSelectedItem().toString());
+//                MultipartBody.Part textPart =  MultipartBody.Part.createFormData("category",spinner.getSelectedItem().toString());
                 UploadService service = retrofit.create(UploadService.class);
                 // Call REST API using retrofit
-                Call<UploadResponse> response = service.startUpload(filePart, textPart);
+                Call<UploadResponse> response = service.startUpload(filePart);
                 response.enqueue(new Callback<UploadResponse>() {
                     @Override
                     public void onResponse(Call<UploadResponse> call, Response<UploadResponse> response) {
