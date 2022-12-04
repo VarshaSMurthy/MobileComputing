@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +23,10 @@ import com.example.helloworld.pojo.UploadResponse;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import okhttp3.MediaType;
@@ -38,6 +42,7 @@ public class ClassificationActivity extends AppCompatActivity {
 
     Button uploadService;
     private static final String host = "http://192.168.0.214:5000/";
+    Bitmap bmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,30 +55,7 @@ public class ClassificationActivity extends AppCompatActivity {
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         ImageView image = (ImageView) findViewById(R.id.view_image);
         image.setImageBitmap(bmp);
-
-        //https://www.geeksforgeeks.org/spinner-in-android-using-java-with-example/
-        //Dropdown menu containing the categories of image
-//        Spinner spinner = findViewById(R.id.category_spinner);
-//        ArrayList<String> arrayList = new ArrayList<>();
-//        arrayList.add("Buildings");
-//        arrayList.add("Objects");
-//        arrayList.add("Flowers");
-//        arrayList.add("Food");
-//        arrayList.add("Stationery");
-//        arrayList.add("Person");
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
-//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(arrayAdapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                String tutorialsName = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_LONG).show();
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView <?> parent) {
-//            }
-//        });
+        this.bmp = bmp;
 
         uploadService = findViewById(R.id.UploadImage);
         uploadService.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +103,7 @@ public class ClassificationActivity extends AppCompatActivity {
                     public void onResponse(Call<UploadResponse> call, Response<UploadResponse> response) {
                         System.out.println("Successfully uploaded");
                         progressDialog.dismiss();
+                        storeImage(Integer.valueOf(response.body().getCat()));
                         new AlertDialog.Builder(ClassificationActivity.this)
                                 .setTitle("Upload Successful")
                                 .setMessage("Your Image has been uploaded to the server!")
@@ -146,5 +129,24 @@ public class ClassificationActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    private void storeImage(int num){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/MC/"+num+"/");
+        if (!storageDir.exists())
+            storageDir.mkdirs();
+        try {
+            File image = File.createTempFile(
+                    timeStamp,                   /* prefix */
+                    ".jpeg",                     /* suffix */
+                    storageDir                   /* directory */
+            );
+            FileOutputStream out = new FileOutputStream(image);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
