@@ -12,12 +12,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.helloworld.pojo.UploadResponse;
 
@@ -25,7 +21,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -41,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ClassificationActivity extends AppCompatActivity {
 
     Button uploadService;
-    private static final String host = "http://192.168.0.214:5000/";
+    private static final String host = "http://192.168.0.225:5000/";
     Bitmap bmp;
 
     @Override
